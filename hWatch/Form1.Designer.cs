@@ -97,6 +97,7 @@
             this.numericSeconds.Size = new System.Drawing.Size(51, 20);
             this.numericSeconds.TabIndex = 2;
             this.numericSeconds.Tag = "";
+            this.numericSeconds.ValueChanged += new System.EventHandler(this.numericSeconds_ValueChanged);
             // 
             // btnWatch
             // 
@@ -106,6 +107,7 @@
             this.btnWatch.TabIndex = 0;
             this.btnWatch.Text = "Watch";
             this.btnWatch.UseVisualStyleBackColor = true;
+            this.btnWatch.Click += new System.EventHandler(this.btnWatch_Click);
             // 
             // Form1
             // 
