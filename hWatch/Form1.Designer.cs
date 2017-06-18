@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.addressGridView = new System.Windows.Forms.DataGridView();
-            this.IPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Lokacija = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelSeconds = new System.Windows.Forms.Label();
             this.numericSeconds = new System.Windows.Forms.NumericUpDown();
             this.btnWatch = new System.Windows.Forms.Button();
+            this.IPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Lokacija = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.addressGridView)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericSeconds)).BeginInit();
@@ -49,26 +49,10 @@
             this.IPAddress,
             this.Lokacija,
             this.Status});
-            this.addressGridView.Location = new System.Drawing.Point(0, 0);
+            this.addressGridView.Location = new System.Drawing.Point(-3, 0);
             this.addressGridView.Name = "addressGridView";
             this.addressGridView.Size = new System.Drawing.Size(909, 463);
             this.addressGridView.TabIndex = 0;
-            // 
-            // IPAddress
-            // 
-            this.IPAddress.HeaderText = "IP Adresa";
-            this.IPAddress.Name = "IPAddress";
-            // 
-            // Lokacija
-            // 
-            this.Lokacija.HeaderText = "Lokacija";
-            this.Lokacija.Name = "Lokacija";
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
             // 
             // panel1
             // 
@@ -109,6 +93,22 @@
             this.btnWatch.UseVisualStyleBackColor = true;
             this.btnWatch.Click += new System.EventHandler(this.btnWatch_Click);
             // 
+            // IPAddress
+            // 
+            this.IPAddress.HeaderText = "IP Adresa";
+            this.IPAddress.Name = "IPAddress";
+            // 
+            // Lokacija
+            // 
+            this.Lokacija.HeaderText = "Lokacija";
+            this.Lokacija.Name = "Lokacija";
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -130,13 +130,13 @@
         #endregion
 
         private System.Windows.Forms.DataGridView addressGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IPAddress;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Lokacija;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelSeconds;
         private System.Windows.Forms.NumericUpDown numericSeconds;
         private System.Windows.Forms.Button btnWatch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IPAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Lokacija;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
     }
 }
 

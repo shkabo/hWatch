@@ -32,7 +32,38 @@ namespace hWatch
         // We started ping check
         private void btnWatch_Click(object sender, EventArgs e)
         {
+            int rows = addressGridView.RowCount;
 
+            if (rows > 1)
+            {
+                for ( int i = 0; i < rows - 1; i++)
+                {
+                    //PingDevice(addressGridView.Rows[i].Cells["IPAddress"].Value.ToString(), i);
+                    Ping pingSender = new Ping();
+                    //String addr = addressGridView.Rows[i].Cells["IPAddress"].Value.ToString();
+                    String addr = addressGridView.Rows[i].Cells[0].EditedFormattedValue.ToString().Trim();
+
+                    string ip = (Convert.ToInt16(addr.Replace(",", ".").Split('.')[0])).ToString();
+                    ip += "." + (Convert.ToInt16(addr.Replace(",", ".").Split('.')[1])).ToString();
+                    ip += "." + (Convert.ToInt16(addr.Replace(",", ".").Split('.')[2])).ToString();
+                    ip += "." + (Convert.ToInt16(addr.Replace(",", ".").Split('.')[3])).ToString();
+
+                    IPAddress address = System.Net.IPAddress.Parse(ip);
+                    PingReply reply = pingSender.Send(address);
+
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        addressGridView.Rows[i].Cells[2].ReadOnly = false;
+                        
+                        addressGridView.Rows[i].Cells[2].Value = reply.RoundtripTime.ToString() + " ms";
+                        addressGridView.Rows[i].Cells[2].ReadOnly = true;
+                    }
+                    else
+                    {
+                        addressGridView.Rows[i].Cells[2].Value = reply.Status.ToString();
+                    }
+                }
+            }
         }
 
         // Get number of seconds between checks
@@ -41,23 +72,19 @@ namespace hWatch
             this.pingTimer = Decimal.ToInt32( numericSeconds.Value );
         }
 
-        
-    }
-
-    class WatchStatus
-    {
-        public static string PingDevice(string ipAddr)
+        private void PingDevice(string ipAddr, int row)
         {
             Ping pingSender = new Ping();
-            IPAddress address = IPAddress.Parse(ipAddr);
+            IPAddress address = System.Net.IPAddress.Parse(ipAddr);
             PingReply reply = pingSender.Send(address);
 
             if (reply.Status == IPStatus.Success)
             {
-                return reply.RoundtripTime.ToString();
-            } else
+                addressGridView.Rows[row].Cells[2].Value = reply.RoundtripTime.ToString();
+            }
+            else
             {
-                return reply.Status.ToString();
+                addressGridView.Rows[row].Cells[2].Value = reply.Status.ToString();
             }
         }
     }
