@@ -38,30 +38,7 @@ namespace hWatch
             {
                 for ( int i = 0; i < rows - 1; i++)
                 {
-                    //PingDevice(addressGridView.Rows[i].Cells["IPAddress"].Value.ToString(), i);
-                    Ping pingSender = new Ping();
-                    //String addr = addressGridView.Rows[i].Cells["IPAddress"].Value.ToString();
-                    String addr = addressGridView.Rows[i].Cells[0].EditedFormattedValue.ToString().Trim();
-
-                    string ip = (Convert.ToInt16(addr.Replace(",", ".").Split('.')[0])).ToString();
-                    ip += "." + (Convert.ToInt16(addr.Replace(",", ".").Split('.')[1])).ToString();
-                    ip += "." + (Convert.ToInt16(addr.Replace(",", ".").Split('.')[2])).ToString();
-                    ip += "." + (Convert.ToInt16(addr.Replace(",", ".").Split('.')[3])).ToString();
-
-                    IPAddress address = System.Net.IPAddress.Parse(ip);
-                    PingReply reply = pingSender.Send(address);
-
-                    if (reply.Status == IPStatus.Success)
-                    {
-                        addressGridView.Rows[i].Cells[2].ReadOnly = false;
-                        
-                        addressGridView.Rows[i].Cells[2].Value = reply.RoundtripTime.ToString() + " ms";
-                        addressGridView.Rows[i].Cells[2].ReadOnly = true;
-                    }
-                    else
-                    {
-                        addressGridView.Rows[i].Cells[2].Value = reply.Status.ToString();
-                    }
+                    this.PingDevice(i);
                 }
             }
         }
@@ -72,20 +49,45 @@ namespace hWatch
             this.pingTimer = Decimal.ToInt32( numericSeconds.Value );
         }
 
-        private void PingDevice(string ipAddr, int row)
+        private async void PingDevice(int row)
         {
+            
             Ping pingSender = new Ping();
-            IPAddress address = System.Net.IPAddress.Parse(ipAddr);
-            PingReply reply = pingSender.Send(address);
+            String addr = addressGridView.Rows[row].Cells[0].EditedFormattedValue.ToString().Trim();
+            addressGridView.Rows[row].Cells[2].ReadOnly = false;
+            addressGridView.Rows[row].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Red };
+            try
+            {
+                PingReply reply = await pingSender.SendPingAsync(addr, 2000);
 
-            if (reply.Status == IPStatus.Success)
-            {
-                addressGridView.Rows[row].Cells[2].Value = reply.RoundtripTime.ToString();
+                if (reply.Status == IPStatus.Success)
+                {
+                    
+                    addressGridView.Rows[row].Cells[2].Value = reply.RoundtripTime.ToString() + " ms";
+                    addressGridView.Rows[row].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Green };
+                }
+                else
+                {
+                    addressGridView.Rows[row].Cells[2].Value = reply.Status.ToString();
+                    addressGridView.Rows[row].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Black };
+                }
+                
             }
-            else
+            catch (System.Net.NetworkInformation.PingException)
             {
-                addressGridView.Rows[row].Cells[2].Value = reply.Status.ToString();
+
+                MessageBox.Show("Invalid IP or bad address: " + addr);
             }
+            finally
+            {
+                if (pingSender != null)
+                {
+                    pingSender.Dispose();
+                }
+                addressGridView.Rows[row].Cells[2].ReadOnly = true;
+            }
+
+            
         }
     }
 }
