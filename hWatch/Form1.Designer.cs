@@ -44,6 +44,7 @@
             // addressGridView
             // 
             this.addressGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.addressGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.addressGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.addressGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IPAddress,
@@ -95,17 +96,17 @@
             // 
             // IPAddress
             // 
-            this.IPAddress.HeaderText = "IP Adresa";
+            this.IPAddress.HeaderText = "IP Address/Domain";
             this.IPAddress.Name = "IPAddress";
             // 
             // Lokacija
             // 
-            this.Lokacija.HeaderText = "Lokacija";
+            this.Lokacija.HeaderText = "Location";
             this.Lokacija.Name = "Lokacija";
             // 
             // Status
             // 
-            this.Status.HeaderText = "Status";
+            this.Status.HeaderText = "Ping Status";
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
             // 
